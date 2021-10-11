@@ -1,3 +1,6 @@
+# Local dev
+config/*.local
+
 # Built application files
 *.apk
 *.aar
