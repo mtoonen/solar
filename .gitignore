@@ -1,5 +1,5 @@
 # Local dev
-config/*.local
+config/system.conf.local
 
 # Built application files
 *.apk
