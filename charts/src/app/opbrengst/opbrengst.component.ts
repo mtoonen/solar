@@ -3,6 +3,9 @@ import {data} from './data_energy_2';
 import {multi} from './data';
 import {ChartData} from "../models/ChartData";
 import {DataConverterService} from "../services/data-converter.service";
+import {GetDataService} from "../services/get-data.service";
+import {concatMap, map, switchMap} from "rxjs/operators";
+import {Interval, Opbrengst} from "../models/opbrengst";
 
 @Component({
   selector: 'app-opbrengst',
@@ -11,10 +14,8 @@ import {DataConverterService} from "../services/data-converter.service";
 })
 export class OpbrengstComponent implements OnInit {
 
-  constructor(private dataConverter: DataConverterService) {
-    const a = dataConverter.convertOpbrengst(data);
-    //Object.assign(this, { multi });
-    this.data = multi;
+  constructor(private dataConverter: DataConverterService,
+              private service : GetDataService) {
   }
 
   data: ChartData[] = [];
@@ -28,8 +29,8 @@ export class OpbrengstComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Datum';
+  yAxisLabel: string = 'Energie';
   timeline: boolean = true;
 
   colorScheme = {
@@ -38,8 +39,27 @@ export class OpbrengstComponent implements OnInit {
 
 
   ngOnInit(): void {
-        const a = 0;
-    }
+    const dates = ['1634428800', '1634342400'];
+    this.service.getDataMulti(dates)
+      .subscribe(vals =>{
+        const intervals : Interval[]= [];
+        vals.forEach(op => intervals.push(...op.intervals))
+        const b = 0;
+        const a = this.dataConverter.convertOpbrengst({
+          system_id: 123,
+          intervals,
+          total_devices:12
+        });
+        this.data = a;
+
+
+    });
+    /*this.service.getData('1634559950').subscribe(value => {
+      const a = this.dataConverter.convertOpbrengst(value);
+      this.data = a;
+    })*/
+
+  }
 
   onSelect(data: ChartData): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));

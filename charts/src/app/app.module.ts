@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import { OpbrengstComponent } from './opbrengst/opbrengst.component';
+import {OpbrengstComponent} from './opbrengst/opbrengst.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {CommonModule, DatePipe} from "@angular/common";
+import {DatePipe} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {CommonModule, DatePipe} from "@angular/common";
     BrowserModule,
     NgxChartsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
