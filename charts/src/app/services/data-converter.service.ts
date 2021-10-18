@@ -21,14 +21,15 @@ export class DataConverterService {
         data.set(day, []);
       }
       const series = data.get(day) || [];
-      const n = this.datepipe.transform(new Date(interval.end_at * 1000), 'HH:mm:ss dd-MM-yy');
+      const n = this.datepipe.transform(new Date(interval.end_at * 1000), 'HH:mm');
       series.push({
         name: n ? n : '',
         value: interval.powr
       });
     });
-    const array = Array.from(data, ([name, value]) => ({ name, value }));
+    const array = Array.from(data, ([name, series]) => ({ name, series }));
 
-    return [];
+    return array;
+
   }
 }
