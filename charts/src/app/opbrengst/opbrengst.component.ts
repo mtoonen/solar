@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { multi } from './data';
+import {data} from './data_energy_2';
+import {multi} from './data';
+import {ChartData} from "../models/ChartData";
+import {DataConverterService} from "../services/data-converter.service";
 
 @Component({
   selector: 'app-opbrengst',
@@ -8,11 +11,13 @@ import { multi } from './data';
 })
 export class OpbrengstComponent implements OnInit {
 
-  constructor() {
-    Object.assign(this, { multi });
+  constructor(private dataConverter: DataConverterService) {
+    const a = dataConverter.convertOpbrengst(data);
+    //Object.assign(this, { multi });
+    this.data = multi;
   }
 
-  multi: any[] = [];
+  data: ChartData[] = [];
   view: any[] = [700, 300];
 
   // options
@@ -33,18 +38,18 @@ export class OpbrengstComponent implements OnInit {
 
 
   ngOnInit(): void {
-        throw new Error('Method not implemented.');
+        const a = 0;
     }
 
-  onSelect(data: any): void {
+  onSelect(data: ChartData): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
-  onActivate(data: any): void {
+  onActivate(data: ChartData): void {
     console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
-  onDeactivate(data: any): void {
+  onDeactivate(data: ChartData): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }
